@@ -11,19 +11,6 @@
 
 
 
-function enqueue_song_similarity_scripts() {
-    // Enqueue custom style (if you have a custom CSS for this form)
-    wp_enqueue_style('song-similarity-style', get_template_directory_uri() . '/css/song-similarity-style.css');
-    
-    // Enqueue custom JavaScript
-    wp_enqueue_script('song-similarity-scripts', get_template_directory_uri() . '/js/song-similarity-scripts.js', array('jquery'), null, true);
-    
-    // Pass the API URL to the script
-    wp_localize_script('song-similarity-scripts', 'songSimilarity', array(
-        'ajax_url' => 'https://5000-omarabdelke-songsimilar-cvc2qmcoho8.ws-eu116.gitpod.io//compare-professor-song'
-    ));
-}
-add_action('wp_enqueue_scripts', 'enqueue_song_similarity_scripts');
 
 if ( ! function_exists( 'twentytwentytwo_support' ) ) :
 
@@ -79,4 +66,19 @@ add_action( 'wp_enqueue_scripts', 'twentytwentytwo_styles' );
 // Add block patterns
 require get_template_directory() . '/inc/block-patterns.php';
 
+
+// Enqueue custom scripts and styles for the song similarity form
+function enqueue_song_similarity_scripts() {
+    // Enqueue custom style
+    wp_enqueue_style('song-similarity-style', get_template_directory_uri() . '/css/song-similarity-style.css', array(), '1.0.0');
+    
+    // Enqueue custom JavaScript
+    wp_enqueue_script('song-similarity-scripts', get_template_directory_uri() . '/js/song-similarity-scripts.js', array('jquery'), '1.0.0', true);
+    
+    // Pass the API URL to the script
+    wp_localize_script('song-similarity-scripts', 'songSimilarity', array(
+        'api_url' => 'https://5000-omarabdelke-songsimilar-cvc2qmcoho8.ws-eu116.gitpod.io/compare-professor-song'
+    ));
+}
+add_action('wp_enqueue_scripts', 'enqueue_song_similarity_scripts');
 
